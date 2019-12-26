@@ -2,15 +2,14 @@ import React, { Component } from "react";
 // import GiftListContainer from '../containers/GifListContainer'
 
 class GifList extends Component {
-    constructor(){
-        super()
-    }
+
+     list = () => {
+     return this.props.gifs.data && this.props.gifs.data.slice(0,3).map(gif => {
+            console.log(gif.images.original.url)
+        return <img src={gif.images.original.url} />
+     })}
+       
     
-    list = () => {
-        this.props.gifs.map(gift => {
-            return <li>{gift.images.original.url}</li>
-        })
-    }
 
     render(){
         return (

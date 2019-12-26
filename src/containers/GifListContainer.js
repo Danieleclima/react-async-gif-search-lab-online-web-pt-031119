@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import GifSearch from '../components/GifSearch'
 import GifList from '../components/GifList'
 
 class GifListContainer extends Component {
@@ -7,8 +8,10 @@ class GifListContainer extends Component {
         gifs: []
       }
 
-    componentDidMount(){
-        fetch('https://api.giphy.com/v1/gifs/search?q=dolphin&api_key=jCd7ds89RUUKuRMYoCFpWAEPj1v08OGy&rating=g')
+    submitHandler= (event) => {
+        event.preventDefault()
+        console.log(event.target[0].value)
+        fetch(`https://api.giphy.com/v1/gifs/search?q=${event.target[0].value}&api_key=jCd7ds89RUUKuRMYoCFpWAEPj1v08OGy&rating=g`)
         .then(res => res.json())
         .then(json => this.setState({
             gifs: json
@@ -16,7 +19,16 @@ class GifListContainer extends Component {
     }
 
     render(){
-       return (<GifList gifs={this.state.gifs} />) 
+       return (
+    <div>
+        <div>
+        <GifSearch submiting={this.submitHandler}/>
+        </div>
+        <div>
+       <GifList gifs={this.state.gifs} />
+       </div>
+    </div>     
+        ) 
     }
 }
 
